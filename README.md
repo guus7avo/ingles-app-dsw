@@ -9,6 +9,12 @@
 npm install
 ```
 
+## Usage
+
+```sh
+npm run serve
+```
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!
