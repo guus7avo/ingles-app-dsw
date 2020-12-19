@@ -1,0 +1,16 @@
+{
+    "dbOptions": {
+        "database": "inglesapp",
+        "username": "root",
+        "password": "admin",
+        "dialect": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "logging": false
+    },
+    "options": {
+        "type": "js",
+        "camelCase": true,
+        "dir": "models"
+    }
+}
