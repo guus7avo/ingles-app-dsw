@@ -1,14 +1,16 @@
 const express = require("express");
 // const { response } = require("express");
 const model = require("./models");
+const cors = require("cors");
 
 const app = express();
-const TemaAula = model.temaAulaModel;
+const TemaAula = model.temaaulaModel;
 const Cargo = model.cargoModel;
 const Cadastrado = model.cadastradoModel;
 const Aula = model.aulaModel;
 
 app.use(express.json());
+app.use(cors());
 
 // Endpoint para criar um endereço
 app.post("/temaAula", (request, response)=>{
