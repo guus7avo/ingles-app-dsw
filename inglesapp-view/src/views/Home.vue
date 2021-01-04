@@ -12,6 +12,30 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  data() {
+    return {
+      userData:{
+      id: "",
+      nome: ""
+      }
+    }
+    
+  },
+  methods: {
+    getUserData(){
+      this.$http.get("/api/user")
+      .then(response => {
+        this.userData = response.data;
+      }).catch(error => {
+        console.error("Erro ou falta de permissão de acesso");
+        console.log(error);
+        this.$router.push("/");
+      });
+    }
+  },
+  mounted() {
+    this.getUserData();
+  }
 }
 </script>

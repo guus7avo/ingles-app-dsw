@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="mt-4">
-    <MenuLateral></MenuLateral>
+    <MenuLateral v-if="renderMenu()"></MenuLateral>
     <router-view />
   </div>
 </template>
@@ -9,7 +9,12 @@
 import MenuLateral from '@/components/MenuLateral.vue'
 
 export default {
-  components: { MenuLateral }
+  components: { MenuLateral },
+  methods:{
+    renderMenu(){
+      return !this.$route.matched.some(record => record.meta.notRenderMenu);
+    }
+  }
 }
 </script>
 

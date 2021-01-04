@@ -6,7 +6,7 @@
         <b-nav-item to="/home">Home</b-nav-item>
         <b-nav-item to="/perfil">Perfil</b-nav-item>
         <b-nav-item to="/aulas">Aulas</b-nav-item>
-        <b-nav-item to="/">Sair</b-nav-item>
+        <a href="" @click="logout">Sair</a>
       </div>
     </b-sidebar>
   </div>
@@ -14,8 +14,19 @@
 
 <script>
 export default {
-  name: 'MenuLateral'
-}
+  name: 'MenuLateral',
+  methods:
+  {
+    logout(){
+      this.$http
+        .get("/api/logout")
+        .then((response) => {
+          this.$router.push("/");
+        })
+        .catch((errors) => console.error(errors));
+    },
+  },
+};
 </script>
 
 <style>

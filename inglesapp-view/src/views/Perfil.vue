@@ -20,6 +20,18 @@
 
         <div class="col-md-4 mb-3 offset-md-4">
 
+          <label for="nome">Nome de usuário</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"></span>
+            </div>
+            <input type="text" class="form-control" id="nome" placeholder="marcos_silva" required="required">
+          </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3 offset-md-4">
+
           <label for="email">E-mail</label>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -56,8 +68,27 @@ export default {
   name: 'Perfil',
   data () {
     return {
+      userData:{
+        id: "",
+        nome: ""
+      },
       mainProps: { blank: false, blankColor: '#777', width: 150, height: 150, class: 'm1' }
     }
+  },
+  methods: {
+    getUserData(){
+      this.$http.get("/api/user")
+      .then(response => {
+        this.userData = response.data;
+      }).catch(error => {
+        console.error("Erro ou falta de permissão de acesso");
+        console.log(error);
+        this.$router.push("/");
+      });
+    }
+  },
+  mounted() {
+    this.getUserData();
   }
 }
 </script>

@@ -26,7 +26,8 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {notRenderMenu: true}
   }
 ]
 

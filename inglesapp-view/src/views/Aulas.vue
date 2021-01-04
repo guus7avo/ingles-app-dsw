@@ -29,6 +29,10 @@ export default {
   },
   data(){
     return {
+      userData:{
+        id: "",
+        nome: ""
+      },
       items: [
         // {titulo: "Aula 1", conteudo: "Primeira aula"}, 
         // {titulo: "Aula 2", conteudo: "Segunda aula"}, 
@@ -46,6 +50,7 @@ export default {
     };
   },
   mounted() {
+    this.getUserData();
     this.$http
     .get("/aula")  
     .then(result =>{
@@ -56,6 +61,16 @@ export default {
     })
   },
   methods: {
+    getUserData(){
+      this.$http.get("/api/user")
+      .then(response => {
+        this.userData = response.data;
+      }).catch(error => {
+        console.error("Erro ou falta de permissão de acesso");
+        console.log(error);
+        this.$router.push("/");
+      });
+    },
     criarAula() {
       this.modalData.title = "Crie uma nova aula";
 
