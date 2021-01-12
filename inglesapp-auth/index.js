@@ -96,6 +96,6 @@ app.get("/api/logout", (request, response) => {
     request.send();
 });
 
-app.listen("3030", (request, response) => {
+app.listen(3030, (request, response) => {
     console.log("Servidor ouvindo na porta 3030");
 });
