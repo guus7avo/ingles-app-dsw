@@ -9,6 +9,36 @@
 npm install
 ```
 
+## Run DB server
+
+```sh
+cd inglesapp-db
+```
+
+```
+node index.js
+```
+
+## Run Authentication server
+
+```sh
+cd inglesapp-auth
+```
+
+```
+node index.js
+```
+
+## Run application
+
+```sh
+cd inglesapp-view
+```
+
+```sh
+npm run serve
+```
+
 ## Show your support
 
 Give a ⭐️ if this project helped you!
