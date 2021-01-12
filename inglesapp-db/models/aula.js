@@ -11,7 +11,11 @@ module.exports = sequelize => {
       primaryKey: true,
       autoIncrement: false,
       comment: null,
-      field: "idAula"
+      field: "idAula",
+      references: {
+        key: "idAula",
+        model: "aulaModel",
+      },
     },
     titulo: {
       type: DataTypes.STRING(45),

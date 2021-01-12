@@ -1,6 +1,6 @@
 const express = require("express");
-// const { response } = require("express");
 const model = require("./models");
+const routes = require("./routes/aula.route")
 const cors = require("cors");
 
 const app = express();
@@ -10,7 +10,19 @@ const Cadastrado = model.cadastradoModel;
 const Aula = model.aulaModel;
 
 app.use(express.json());
-app.use(cors());
+
+app.use((req, res, next) => {
+    //console.log("Acessou o Middleware!");
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.header("Access-Control-Allow-Methods", 'GET, PUT, POST, DELETE');
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Request-Width, Content-Type, Accept");
+    app.use(cors());
+    next();
+})
+
+// Configura as rotas no servidor express
+app.use("", routes);
 
 // Endpoint para criar um endereço
 app.post("/temaAula", (request, response)=>{
@@ -112,5 +124,5 @@ app.get("/aula/:id", (request, response) => {
 
 // Inicialização do servidor
 app.listen(8888, (request, response) =>{
-    console.log("O pai tá on!");
+    console.log("Servidor ouvindo na porta 8888");
 });
