@@ -9,12 +9,17 @@
         <template v-slot:cell(editar)="linhaAula">
           <b-button variant="outline-primary" @click="editarAula(linhaAula.item)">Editar</b-button>
         </template>
+        <template v-slot:cell(deletar)="index">
+          <b-button variant="outline-primary" @click="deleteFromList(index)">Deletar</b-button>
+        </template>
       </b-table>
 
     <b-modal @hide="resetaModalData()" :id="modalData.id" :title="modalData.title">
-      <EditorAula :aulaEdit="modalData.content" :callback="modalData.callback"></EditorAula>
+      <EditorAula 
+        :aulaEdit="modalData.content" 
+        :callback="modalData.callback">
+      </EditorAula>
     </b-modal>
-
     </div>
   </div>
 </template>
@@ -40,20 +45,19 @@ export default {
         // {titulo: "Aula 4", conteudo: "Quarta aula"}, 
         // {titulo: "Aula 5", conteudo: "Quinta aula"}
       ],
-      fields: ["titulo", "conteudo", "editar"],
+      fields: ["titulo", "conteudo", "editar", "deletar"],
       modalData: {
-        id: "modal-aula",
+        id: "modalData.id",
         content: null,
-        title: "",
+        title: "Edite sua aula",
         callback: null
       }
     };
   },
   mounted() {
-    this.getUserData();
     this.$http
     .get("/aula")  
-    .then(result =>{
+    .then((result) =>{
       this.items = result.data;
     })
     .catch(error=>{
@@ -71,8 +75,14 @@ export default {
         this.$router.push("/");
       });
     },
+    deleteFromList(index) {
+      this.items.splice(index, 1);
+      alert("Aula excluida com sucesso!")
+    },
+
     criarAula() {
       this.modalData.title = "Crie uma nova aula";
+      this.modalData.content = null;
 
       this.modalData.callback = (novaAula)=>{
         this.$http
@@ -80,9 +90,8 @@ export default {
           .then((result) => {
             if (result.data.titulo === novaAula.data.titulo){
               console.log("Dado salvo com sucesso.");
-              alert("Aula cruada: \n" + result.data);
-            }
-            
+              alert("Aula criada com sucesso!");
+            }        
           })
           .catch((error) =>{
             console.log(error);
@@ -98,13 +107,13 @@ export default {
       this.modalData.title = "Edite a aula \"" + linhaAula.titulo + "\"";
 
       this.modalData.callback = (editAula)=>{
-        this.$http.put("/aula/" + editAula.id, editAula.data)
-        .then((result) => {
-            if (result.data.titulo === editAula.data.titulo){
+        this.$http
+        .put("/aula/" + editAula.id, editAula.data)
+        .then(() => {
+            // if (result.data.titulo === editAula.data.titulo){
               console.log("Aula alterada com sucesso.");
               alert("Aula alterada com sucesso.");
-            }
-            
+            // }
           })
           .catch((error) =>{
             console.log(error);

@@ -1,7 +1,7 @@
 <template>
   <div>
       <b-form @submit="onSubmit">
-        <b-form-group label="Titulo do evento:" label-for="aula-titulo">
+        <b-form-group label="Titulo da aula:" label-for="aula-titulo">
             <b-form-input
             id="aula-titulo"
             v-model="aulaModel.titulo"
@@ -19,7 +19,7 @@
             ></b-form-textarea>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">Alterar</b-button>
+        <b-button type="submit" variant="primary">Enviar</b-button>
 
       </b-form>
   </div>
@@ -31,32 +31,40 @@ export default {
         aulaEdit: {
             idAula: Number,
             titulo: String, 
-            conteudo: String 
+            conteudo: String,
+            cadastradoIdCadastrado: Number,
+            temaAulaIdTemaAula: Number
         },
         callback: Function
     },
     data(){
         return {
             aulaModel: {
+                idAula: 0,
                 titulo: "Digite o título da aula", 
-                conteudo: "Digite o conteúdo da aula" 
+                conteudo: "Digite o conteúdo da aula",
+                cadastradoIdCadastrado: 1,
+                temaAulaIdTemaAula: 1
             }
         };
     },
     mounted(){
         if(this.aulaEdit){
+            this.aulaModel.idAula = this.aulaEdit.idAula;
             this.aulaModel.titulo = this.aulaEdit.titulo;
             this.aulaModel.conteudo = this.aulaEdit.conteudo;
+            // this.aulaModel.cadastradoIdCadastrado = this.aulaEdit.cadastradoIdCadastrado;
+            // this.aulaModel.temaAulaIdTemaAula = this.aulaEdit.temaAulaIdTemaAula;
         }
     },
-    methods: {
-        onSubmit(){
-            this.callback({
-                id: this.aulaEdit.idAula, 
-                data: this.aulaModel,
-                });
-        }
-    }
+  methods: {
+    onSubmit() {
+      this.callback({
+          id: this.aulaEdit ? this.aulaEdit.idAula: 0,
+          data: this.aulaModel,
+          });
+  }
+},
 };
 </script>
 

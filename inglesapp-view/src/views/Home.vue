@@ -1,6 +1,7 @@
 <template>
   <div class="mt-4 mb-3">
-    <h1>Welcome back, student</h1>
+    <img src="../assets/icon.png" v-bind="mainProps" rounded="circle" fluid alt="Responsive image">
+    <h1>Welcome back, teacher</h1>
     <div class="col-md-8 mt-4 mb-3 offset-md-2">
       <b-nav-item to="/aulas" type="button" class="btn btn-light btn-lg btn-block">Continuar Aulas</b-nav-item>
       <b-nav-item to="/perfil" type="button" class="btn btn-light btn-lg btn-block">Editar perfil</b-nav-item>
@@ -18,7 +19,8 @@ export default {
       userData:{
       id: "",
       nome: ""
-      }
+      },
+      mainProps: { blank: false, blankColor: '#777', width: 250, height: 250, class: 'm1' }
     }
     
   },
